@@ -30,6 +30,7 @@ export {default as BaseInput} from './base-input';
 export {
   Label as StyledLabel,
   Root as StyledRoot,
+  InputRoot as StyledInputRoot,
   InputEnhancer as StyledInputEnhancer,
   InputContainer as StyledInputContainer,
   Input as StyledInput,
