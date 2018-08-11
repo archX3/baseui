@@ -1,5 +1,7 @@
 // @flow
 export {default as Select} from './select';
+export {default as StatefulSelect} from './stateful-select';
+export {default as StatefulSelectContainer} from './stateful-select-container';
 // Styled elements
 export {
   Root as StyledRoot,

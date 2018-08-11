@@ -7,6 +7,7 @@ import {styled} from '../../styles';
 
 // Styled elements
 import {
+  StatefulSelect,
   Select,
   StyledRoot,
   StyledInput,
@@ -37,18 +38,22 @@ class ParentSearch extends React.Component<{}, {}> {
   render() {
     return (
       <React.Fragment>
-        <Select
+        <StatefulSelect
           multiple={true}
           type={TYPE.SEARCH}
           initialState={{
             selectedOptions: this.state.selectedOptions,
+            textValue: 'Predefined text search value',
           }}
           label="Search for tags"
           caption="Some caption"
           placeholder="Start searching"
           onClearAll={() => console.log('Cleared text')}
-          onSelect={(e, {id, label}, selectedTags) => {
+          onSelect={(e, {id, label, selectedOptions}) => {
             console.log('Selected id:' + id + 'with label ' + label);
+          }}
+          onUnSelect={(e, {id, label, selectedOptions}) => {
+            console.log('Unselected id:' + id + 'with label ' + label);
           }}
           onKeyUp={e => {
             let text = e.target.value;
@@ -66,7 +71,7 @@ class ParentSearch extends React.Component<{}, {}> {
           }}
         >
           {this.state.options}
-        </Select>
+        </StatefulSelect>
       </React.Fragment>
     );
   }
@@ -76,41 +81,49 @@ class ParentSelect extends React.Component<{}, {}> {
   static defaultProps: {} = {};
   constructor(props: {}) {
     super(props);
+    const {
+      options = []
+    } = props;
     this.state = {
-      options: [
-        {
-          id: '1',
-          label: 'label for 1',
-        },
-        {
-          id: '2',
-          label: 'label for 2',
-        },
-        {
-          id: '3',
-          label: 'label for 3',
-        },
-        {
-          id: '4',
-          label: 'label for 4',
-        },
-      ],
-      selectedOptions: [
-        {
-          id: '123',
-          label: 'preselected label for 123',
-        },
-      ],
+      options: options.length
+        ? options
+        : [
+            {
+              id: '1',
+              label: 'label for 1',
+            },
+            {
+              id: '2',
+              label: 'label for 2',
+            },
+            {
+              id: '3',
+              label: 'label for 3',
+            },
+            {
+              id: '4',
+              label: 'label for 4',
+            },
+          ],
+      selectedOptions: options.length
+        ? [options[0]]
+        : [
+            {
+              id: '123',
+              label: 'preselected label for 123',
+            },
+          ],
     };
   }
   render() {
     return (
       <React.Fragment>
-        <Select
+        <StatefulSelect
+          getSelectedOptionLabel={this.props.getSelectedOptionLabel}
+          getOptionLabel={this.props.getOptionLabel}
           multiple={this.props.multiple}
           type={TYPE.SELECT}
           initialState={{
-            value: 'sdgsdf',
             selectedOptions: this.state.selectedOptions,
           }}
           label="Select"
@@ -120,7 +133,7 @@ class ParentSelect extends React.Component<{}, {}> {
           }}
         >
           {this.state.options}
-        </Select>
+        </StatefulSelect>
       </React.Fragment>
     );
   }
@@ -131,8 +144,95 @@ storiesOf('Select', module)
     return <ParentSearch />;
   })
   .add('In Select multiple mode', () => {
-    return <ParentSelect multiple={true}/>;
+    return <ParentSelect multiple={true} />;
   })
   .add('In Select single mode', () => {
     return <ParentSelect />;
+  })
+  .add('In Select multiple mode with Custom Labels', () => {
+    return (
+      <ParentSelect
+        multiple={true}
+        options={[
+          {
+            id: '1',
+            label: <span>
+                <img style={{
+                    borderRadius: '50%',
+                    height: '75px',
+                  }} src="https://fusionjs.com/static/nadiia.37070301.jpg"/>Nadiia</span>,
+          },
+          {
+            id: '2',
+            label: <span>
+              <img style={{
+                    borderRadius: '50%',
+                    height: '75px',
+                  }} src="https://fusionjs.com/static/mlmorg.c28c19d7.jpeg"/>Matt</span>,
+          },
+        ]}
+      />
+    );
+  })
+  .add('In Select multiple mode with Custom Labels and Custom Selected labels', () => {
+      const options = [
+        {
+          id: '1',
+          label: <span>
+            <img style={{
+                  borderRadius: '50%',
+                  height: '75px',
+                }} src="https://fusionjs.com/static/nadiia.37070301.jpg"/>Nadiia</span>,
+          text: 'Nadiia',
+          imgSrc: 'https://fusionjs.com/static/nadiia.37070301.jpg'
+        },
+        {
+          id: '2',
+          label: <span>
+              <img style={{
+                  borderRadius: '50%',
+                  height: '75px',
+                }} src="https://fusionjs.com/static/mlmorg.c28c19d7.jpeg"/>Matt</span>,
+          text: 'Matt',
+          imgSrc: 'https://fusionjs.com/static/mlmorg.c28c19d7.jpeg',
+        },
+    ];
+      return (
+        <ParentSelect
+          multiple={true}
+          getSelectedOptionLabel={option => <span>
+              <img style={{
+                  borderRadius: '50%',
+                  height: '50px',
+                }} src={options.find(opt => opt.id === option.id).imgSrc}/>{options.find(opt => opt.id === option.id).text + ' SELECTED'}</span>}
+          options={options}
+        />
+    );
+  })
+  .add('In Select single mode with some disabled', () => {
+    return (
+      <ParentSelect
+        multiple={true}
+        options={[
+          {
+            id: '1',
+            label: 'label for 1',
+          },
+          {
+            id: '2',
+            label: 'label for 2',
+            disabled: true,
+          },
+          {
+            id: '3',
+            label: 'label for 3',
+          },
+          {
+            id: '4',
+            label: 'label for 4',
+            disabled: true,
+          },
+        ]}
+      />
+    );
   });
