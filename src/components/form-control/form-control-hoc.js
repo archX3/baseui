@@ -1,12 +1,12 @@
 // @flow
 import * as React from 'react';
-import getBuiId from '../../utils/get-bui-id';
-import {getOverride, getOverrideProps} from '../../helpers/overrides';
-import {
-  Label as StyledLabel,
-  Caption as StyledCaption,
-} from './styled-components';
-import type {FormControlPropsT} from './types';
+// import getBuiId from '../../utils/get-bui-id';
+// import {getOverride, getOverrideProps} from '../../helpers/overrides';
+// import {
+//   Label as StyledLabel,
+//   Caption as StyledCaption,
+// } from './styled-components';
+// import type {FormControlPropsT} from './types';
 import FormControlComponent from './form-control';
 
 export default function asFormControl(Component: React.Component<*>) {

@@ -25,6 +25,7 @@ THE SOFTWARE.
 export {default as StatefulInput} from './stateful-input';
 export {default as StatefulContainer} from './stateful-container';
 export {default as Input} from './input';
+export {default as InputControl} from './input-control';
 export {default as BaseInput} from './base-input';
 // Styled elements
 export {

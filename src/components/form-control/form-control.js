@@ -37,14 +37,14 @@ export default class FormControl extends React.Component<
       label,
       caption,
       error,
-      children,
+      of: Component,
     } = this.props;
 
     const sharedProps = this.getSharedProps();
 
     const Label = getOverride(LabelOverride) || StyledLabel;
     const Caption = getOverride(CaptionOverride) || StyledCaption;
-    const Control = this.Component || React.Children.only(children);
+    const Control = this.Component || Component;
 
     return (
       <React.Fragment>
@@ -57,11 +57,7 @@ export default class FormControl extends React.Component<
             {typeof label === 'function' ? label(sharedProps) : label}
           </Label>
         )}
-        {this.Component ? (
-          <Control {...this.props} />
-        ) : (
-          React.cloneElement(Control, {...Control.props, ...this.props})
-        )}
+        <Control {...this.props} />
         {(caption || error) && (
           <Caption {...sharedProps} {...getOverrideProps(CaptionOverride)}>
             {error && typeof error !== 'boolean'

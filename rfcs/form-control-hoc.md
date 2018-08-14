@@ -10,7 +10,8 @@
 
 ### Form Control API
 
-* `overrides: {Label, Caption}` - Optional
+* Any property of a form control
+* `overrides: {Label, Caption, [...otherFormControlOverrides]}` - Optional
   * `Label: ReactComponent | {props: {}, style: {}, component: ReactComponent}` - Optional
   * `Caption: ReactComponent | {props: {}, style: {}, component: ReactComponent}` - Optional
     Overrides for presentational components.
@@ -25,9 +26,9 @@
 
 Next properties are passed to every presentational (styled) component that form control is composed of:
 
+* `$disabled: boolean`
 * `$error: boolean | node`
 * `$size: 'default' | 'compact'`
-* `$disabled: boolean`
 * `$required: boolean`
 * `$theme: theme`
 
@@ -40,6 +41,11 @@ import {Input} from 'baseui/input';
 export default () => {
   return (
     <div>
+      <InputControl
+        label="Input label"
+        caption="Input caption"
+        error="Input error"
+      />
       <FormControl label="Input label" caption="Input caption" caption>
         <Input />
       </FormControl>

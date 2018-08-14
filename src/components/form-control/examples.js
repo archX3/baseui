@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {Input} from '../input';
+import {Input, InputControl} from '../input';
 import {FormControl} from './';
 
 export const tests = {
@@ -11,21 +11,32 @@ export default {
   [tests.INPUT_EXAMPLE]: function example1() {
     return (
       <div>
-        <Input
+        <InputControl
           label="Input label"
           caption="Input caption"
           error="Input error"
         />
         <br />
-        <Input label="Input label" caption="Input caption" />
+        <InputControl
+          label={() => {
+            return 'Function type label';
+          }}
+          caption={() => {
+            return 'Function type caption';
+          }}
+          error={() => {
+            return 'Function type error';
+          }}
+        />
+        <br />
+        <InputControl label="Input label" caption="Input caption" />
         <br />
         <FormControl
+          of={Input}
           label={<span>Element type label</span>}
           caption={<span>Element type caption</span>}
           placeholder="Placeholder"
-        >
-          <Input />
-        </FormControl>
+        />
       </div>
     );
   },

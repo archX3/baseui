@@ -25,7 +25,6 @@ THE SOFTWARE.
 import * as React from 'react';
 import getBuiId from '../../utils/get-bui-id';
 import {getOverride, getOverrideProps} from '../../helpers/overrides';
-import {asFormControl} from '../form-control';
 import type {InputPropsT, InternalStateT, AdjoinedT} from './types';
 import {getSharedProps} from './utils';
 import BaseInput from './base-input';
@@ -131,7 +130,4 @@ function getAdjoinedProp(startEnhancer, endEnhancer): AdjoinedT {
   return ADJOINED.none;
 }
 
-// in the case we want to export both a FormControlHOC and a FormControl component
-// we'll need to export additional InputControl `export default asFormControl(Input);`
-// along with the Input component `export default Input;`
-export default asFormControl(Input);
+export default Input;
