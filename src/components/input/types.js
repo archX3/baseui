@@ -83,6 +83,7 @@ export type BaseInputPropsT = {
   disabled: boolean,
   error: boolean | React.Node | ((props: PropsT) => React.Node),
   id: string,
+  name: string,
   inputRef: {current: ?React.ElementRef<'input'>},
   onBlur: (e: SyntheticEventT) => void,
   onChange: (e: SyntheticEventT) => void,

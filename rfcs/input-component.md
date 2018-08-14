@@ -69,6 +69,8 @@
     Overrides for presentational components.
 * `id: string` - Optional
   Id attribute value to be added to the input element and as a label's `for` attribute value
+* `name: string` - Optional
+  Name attribute value.
 * `required: boolean` - Optional
   Indicates if the input is required and sets `aria-required` attribute
 * `type: string` - Optional
